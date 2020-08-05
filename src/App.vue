@@ -1,5 +1,6 @@
 <script>
-const app = new Vue({
+import Vue from 'vue';
+new Vue({
   el: '#app',
   data: {
     errors: [],
@@ -20,7 +21,7 @@ const app = new Vue({
         this.errors.push('User name not valid');
       }
 
-//****************TELEPHONE*****************//
+//****************PHONE*****************//
       if (!this.phone) {
         this.errors.push('phone required.');
       } else if (!this.validPhone(this.phone)) {
@@ -44,7 +45,7 @@ const app = new Vue({
 //****************CONFIRMPASSWORD*****************//
       if (!this.confirmPwd) {
         this.errors.push('confirm password required.');
-      } else  if (!this.validConfirmpwd(this.confirmPwd)) {
+      } else if (!this.validConfirmpwd(this.confirmPwd)) {
         this.errors.push('confirm password not valid');
       }
 
@@ -72,7 +73,7 @@ const app = new Vue({
       return pass.test(pwd);
     },
 
-    validConfirmpwd : function (confirmPwd) {
+    validConfirmpwd : function () {
       //console.log(confirmPwd);
       //console.log(this.pwd === this.confirmPwd) ; 
       return (this.pwd == this.confirmPwd);
@@ -81,7 +82,6 @@ const app = new Vue({
     validNationalCode : function (nationalCode) {
       console.log(!/^\d{10}$/.test(nationalCode));
       return (!/^\d{10}$/.test(nationalCode));
-    
     }
     
   }
