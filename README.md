@@ -1,9 +1,6 @@
 # vuejs form with webpack
 it's a simple form with vue and webpack
 
-### Requirements
-you should have nodejs on your system
-
 ## Deployment
 ```
 npm run build
