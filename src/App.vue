@@ -8,6 +8,7 @@
           v-for="error in errors" 
           :key="error.index"
         >
+          <i class="fas fa-exclamation-triangle" />
           {{ error }}
         </li>
       </ul>
@@ -24,6 +25,7 @@
             class="input" 
             type="text" 
             placeholder="نام کاربری" 
+            @change="checkUserInput"
           >
         </div>
       </div>
@@ -35,9 +37,10 @@
         <div class="control has-icons-left has-icons-right">
           <input 
             v-model="nationalCode"
-            class="input is-success" 
+            class="input" 
             type="text" 
             placeholder="کد ملی"
+            @change="checkCodeInput"
           >
           <span class="icon is-small is-left">
             <i class="fas fa-user" />
@@ -56,9 +59,10 @@
           <input 
             id="phone" 
             v-model="phone"
-            class="input is-success" 
+            class="input" 
             type="tel" 
             placeholder="موبایل" 
+            @change="checkPhoneInput"
           >
           <span class="icon is-small is-left">
             <i class="fas fa-phone" />
@@ -77,9 +81,10 @@
           <input
             id="password" 
             v-model="password"
-            class="input is-success" 
+            class="input" 
             type="password" 
             placeholder="رمز عبور" 
+            @change="checkPassInput"
           >
           <span class="icon is-small is-left">
             <i class="fas fa-lock" />
@@ -98,9 +103,10 @@
           <input 
             id="confirm_pass"
             v-model="confirmPass" 
-            class="input is-success" 
+            class="input" 
             type="password" 
             placeholder="تکرار رمز عبور" 
+            @change="checkConfInput"
           >
           <span class="icon is-small is-left">
             <i class="fas fa-lock" />
@@ -189,6 +195,52 @@
 
         e.preventDefault();
       },
+
+      checkUserInput: function(){
+        let input = event.target
+        if (!this.validUser(this.userName)) {
+          input.classList.add("main_red");
+        } else {
+          input.classList.remove("main_red");
+        }
+      },
+
+      checkCodeInput: function(){
+        let input = event.target
+        if (!this.validNationalCode(this.nationalCode)) {
+          input.classList.add("main_red");
+        } else {
+          input.classList.remove("main_red");
+        }
+      },
+
+      checkPhoneInput: function(){
+        let input = event.target
+        if (!this.validPhone(this.phone)) {
+          input.classList.add("main_red");
+        } else {
+          input.classList.remove("main_red");
+        }
+      },
+
+      checkPassInput: function(){
+        let input = event.target
+        if (!this.validPassword(this.password)) {
+          input.classList.add("main_red");
+        } else {
+          input.classList.remove("main_red");
+        }
+      },
+
+      checkConfInput: function(){
+        let input = event.target
+        if (!this.validConfirmPass(this.confirmPass)) {
+          input.classList.add("main_red");
+        } else {
+          input.classList.remove("main_red");
+        }
+      },
+
       clearData: function() {
         this.userName = null;
         this.confirmPass = null;
@@ -198,17 +250,17 @@
       },
 
       validUser : function (userName) {
-        var testUser = /^(?=.{3,20}$)(?![_.])(?![0-9])[a-zA-Z0-9._]+(?<![_.])$/;
+        let testUser = /^(?=.{3,20}$)(?![_.])(?![0-9])[a-zA-Z0-9._]+(?<![_.])$/;
         return testUser.test(userName);
       },
 
       validPhone : function (phone) {
-        var testPhone =  /^\(?([0]{1})\)?([9]{1})?([0-9]{9})$/;
+        let testPhone =  /^\(?([0]{1})\)?([9]{1})?([0-9]{9})$/;
         return testPhone.test(phone);
       },
 
       validPassword : function (password) {
-        var testPass =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+        let testPass =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
         return testPass.test(password);
       },
 
@@ -217,17 +269,19 @@
       },
 
       validNationalCode : function (nationalCode) {
-        var check = parseInt(nationalCode[9]);
-        var sum = 0;
-        var i;
-        for (i = 0; i < 9; ++i) {
-          sum += parseInt(nationalCode[i]) * (10 - i);
-        }
-        sum %= 11;
-        if ((sum < 2 && check == sum) || (sum >= 2 && check + sum == 11)) {
-          return true;
-        } else {
-          return false;
+        if (/^\d{10}$/.test(nationalCode)) {
+          var check = parseInt(nationalCode[9]);
+          var sum = 0;
+          var i;
+          for (i = 0; i < 9; ++i) {
+            sum += parseInt(nationalCode[i]) * (10 - i);
+          }
+          sum %= 11;
+          if ((sum < 2 && check == sum) || (sum >= 2 && check + sum == 11)) {
+            return true;
+          } else {
+            return false;
+          }
         }
       }
     }

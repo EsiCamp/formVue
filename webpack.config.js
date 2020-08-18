@@ -1,6 +1,6 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var VueLoaderPlugin = require('vue-loader/lib/plugin');
-var path = require('path');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let VueLoaderPlugin = require('vue-loader/lib/plugin');
+let path = require('path');
 
 module.exports = {
   mode: 'production',
