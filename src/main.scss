@@ -46,3 +46,13 @@ body {
   max-width: 800px;
   margin: 0 auto;
 }
+
+.form_cnt {
+  width: 100%;
+  .form_detail {
+    li {
+      color: #cd3333;
+      margin-bottom: 6px;
+    }
+  }
+}
