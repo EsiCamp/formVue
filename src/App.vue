@@ -270,9 +270,9 @@
 
       validNationalCode : function (nationalCode) {
         if (/^\d{10}$/.test(nationalCode)) {
-          var check = parseInt(nationalCode[9]);
-          var sum = 0;
-          var i;
+          let check = parseInt(nationalCode[9]);
+          let sum = 0;
+          let i;
           for (i = 0; i < 9; ++i) {
             sum += parseInt(nationalCode[i]) * (10 - i);
           }
