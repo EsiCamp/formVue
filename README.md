@@ -4,11 +4,11 @@ it's a simple form with vue and webpack
 ## How make it works
 
 ```
-* clone this repository
-* npm install
-* npm run build
-* open index.html in dist folder
-* right click and Open with Live server
+clone this repository
+npm install
+npm run build
+open index.html in dist folder
+right click and Open with Live server
 ```
 
 ## This project contain
