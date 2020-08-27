@@ -1,6 +1,6 @@
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let VueLoaderPlugin = require('vue-loader/lib/plugin');
-let path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const path = require('path');
 
 module.exports = {
   mode: 'production',
@@ -22,10 +22,10 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader"
-        ]
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
       },
       {
         test: /\.js$/,
@@ -43,14 +43,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
-    },
-    ]
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: './index.html'
+      template: './src/index.html',
+      filename: './index.html',
     }),
-    new VueLoaderPlugin()
-  ]
+    new VueLoaderPlugin(),
+  ],
 };
