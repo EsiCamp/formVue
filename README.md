@@ -1,14 +1,36 @@
 # vuejs form with webpack
 it's a simple form with vue and webpack
 
-## How make it works
+## Install
 
 ```
-clone this repository
 npm install
+```
+
+## Production
+
+```
 npm run build
-open index.html in dist folder
-right click and Open with Live server
+```
+
+## Deployment
+
+```
+npm run watch
+```
+
+## API
+
+clone below repository
+
+```
+‍https://github.com/mhf-ir/test-openapi
+```
+
+## Run API 
+
+```
+nodejs backend.js
 ```
 
 ## This project contain
