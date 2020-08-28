@@ -34,7 +34,7 @@
     "webpack-dev-server": "^3"
   },
   "dependencies": {
-    "bulma": "^0.9",
+    "bulma": "^0",
     "font-awesome": "^4",
     "node-sass": "^4",
     "vue": "^2"

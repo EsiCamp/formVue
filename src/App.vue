@@ -136,21 +136,21 @@
         <div class="control">
           <button
             class="button is-link is-light"
-            @click="getUsers"
+            @click="receiveList"
           >
             لیست افراد ثبت نام شده
           </button>
+          <ul>
+            <li
+              v-for="item in userDetails"
+              :key="item.index"
+            >
+              {{ item.username }};
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-    <ul>
-      <li
-        v-for="list in listUsers"
-        :key="list.index"
-      >
-        {{ list }}
-      </li>
-    </ul>
   </form>
 </template>
 
@@ -164,36 +164,34 @@ export default {
       password: null,
       phone: null,
       nationalCode: null,
-      listUsers: null,
+      userDetails: '',
     };
   },
   methods: {
 
-    getUsers() {
-    // GET request using fetch with set headers
-      const headers = { 'Content-Type': 'application/json' };
-      fetch('http://127.0.0.1:9000/user/list', { headers })
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json();
-          }
-        })
-        .then((data) => {
-          this.listUsers = data;
-        });
-    },
-
-    postUsers(value) {
+    sendList(user) {
       const requestDetails = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(value),
+        body: JSON.stringify(user),
       };
       fetch('http://127.0.0.1:9000/user/sign-up', requestDetails)
         .then((response) => {
           if (response.status === 200) {
             this.clearData();
           }
+        });
+    },
+
+    receiveList() {
+      fetch('http://127.0.0.1:9000/user/list')
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          this.userDetails = data;
         });
     },
 
@@ -231,14 +229,12 @@ export default {
       }
       if (!this.errors.length) {
         const user = {
-          userNamePost: this.userName,
-          nationalCodePost: this.nationalCode,
-          phonePost: this.phone,
-          passwordPost: this.password,
-          confirmPassPost: this.confirmPass,
+          username: this.userName,
+          nationalID: this.nationalCode,
+          mobilePhone: this.phone,
+          password: this.password,
         };
-        this.postUsers(user);
-        // alert('ثبت نام با موفقیت انجام شد');
+        this.sendList(user);
       }
       e.preventDefault();
     },
