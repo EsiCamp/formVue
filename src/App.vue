@@ -133,8 +133,24 @@
             لغو
           </button>
         </div>
+        <div class="control">
+          <button
+            class="button is-link is-light"
+            @click="getUsers"
+          >
+            لیست افراد ثبت نام شده
+          </button>
+        </div>
       </div>
     </div>
+    <ul>
+      <li
+        v-for="list in listUsers"
+        :key="list.index"
+      >
+        {{ list }}
+      </li>
+    </ul>
   </form>
 </template>
 
@@ -143,14 +159,44 @@ export default {
   data() {
     return {
       errors: [],
-      name: null,
+      userName: null,
       confirmPass: null,
-      pwd: null,
+      password: null,
       phone: null,
       nationalCode: null,
+      listUsers: null,
     };
   },
   methods: {
+
+    getUsers() {
+    // GET request using fetch with set headers
+      const headers = { 'Content-Type': 'application/json' };
+      fetch('http://127.0.0.1:9000/user/list', { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          this.listUsers = data;
+        });
+    },
+
+    postUsers(value) {
+      const requestDetails = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(value),
+      };
+      fetch('http://127.0.0.1:9000/user/sign-up', requestDetails)
+        .then((response) => {
+          if (response.status === 200) {
+            this.clearData();
+          }
+        });
+    },
+
     checkForm(e) {
       this.errors = [];
       // ---------- USER NAME ----------//
@@ -177,18 +223,23 @@ export default {
       } else if (!this.validPassword(this.password)) {
         this.errors.push(' رمز عبور معتبر نیست');
       }
-
       // ---------- CONFIRM PASSWORD ----------//
       if (!this.confirmPass) {
         this.errors.push('رمز عبور خود را مجددا وارد نمایید');
       } else if (!this.validConfirmPass(this.confirmPass)) {
         this.errors.push('رمز عبور مجدد معتبر نیست');
       }
-
       if (!this.errors.length) {
-        alert('ثبت نام با موفقیت انجام شد');
+        const user = {
+          userNamePost: this.userName,
+          nationalCodePost: this.nationalCode,
+          phonePost: this.phone,
+          passwordPost: this.password,
+          confirmPassPost: this.confirmPass,
+        };
+        this.postUsers(user);
+        // alert('ثبت نام با موفقیت انجام شد');
       }
-
       e.preventDefault();
     },
 
