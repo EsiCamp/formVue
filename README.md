@@ -22,4 +22,4 @@ right click and Open with Live server
 
 If everything goes well, you should see this form like this:
 
-![image](http://uupload.ir/files/u19a_screenshot_from_2020-08-24_12-01-46.png)
+![image](http://uupload.ir/files/0zg_screenshot_from_2020-08-28_23-58-40.png)
