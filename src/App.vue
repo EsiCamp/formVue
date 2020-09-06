@@ -120,7 +120,7 @@
         <div>
           <button
             class="button is-link"
-            @click="checkForm"
+            @click.prevent="checkForm"
           >
             ثبت نام
           </button>
@@ -128,7 +128,7 @@
         <div class="control">
           <button
             class="button is-link is-light"
-            @click="clearData"
+            @click.prevent="clearData"
           >
             لغو
           </button>
@@ -136,21 +136,23 @@
         <div class="control">
           <button
             class="button is-link is-light"
-            @click="receiveList"
+            @click.prevent="receiveList"
           >
             لیست افراد ثبت نام شده
           </button>
-          <ul>
-            <li
-              v-for="item in userDetails"
-              :key="item.index"
-            >
-              {{ item.username }};
-            </li>
-          </ul>
         </div>
       </div>
     </div>
+    <ul>
+      <li
+        v-for="item in userDetails"
+        :key="item.index"
+      >
+        {{ item.username }}
+        {{ item.nationalID }}
+        {{ item.mobilePhone }}
+      </li>
+    </ul>
   </form>
 </template>
 
@@ -170,12 +172,12 @@ export default {
   methods: {
 
     sendList(user) {
-      const requestDetails = {
+      const sendRequest = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user),
       };
-      fetch('http://127.0.0.1:9000/user/sign-up', requestDetails)
+      fetch('http://127.0.0.1:9000/user/sign-up', sendRequest)
         .then((response) => {
           if (response.status === 200) {
             this.clearData();
@@ -184,7 +186,11 @@ export default {
     },
 
     receiveList() {
-      fetch('http://127.0.0.1:9000/user/list')
+      const receiveRequest = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      fetch('http://127.0.0.1:9000/user/list', receiveRequest)
         .then((response) => {
           if (response.status === 200) {
             return response.json();
