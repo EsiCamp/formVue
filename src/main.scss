@@ -69,4 +69,14 @@ body {
   .main_red {
     border-color: #cd3333 !important;
   }
+  .show_item {
+    margin-top: 12px;
+    text-align: center;
+  }
+}
+
+.btn_cnt {
+  button:first-of-type {
+    margin-left: 8px;
+  }
 }
